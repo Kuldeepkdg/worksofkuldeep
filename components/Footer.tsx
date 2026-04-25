@@ -23,6 +23,8 @@ export default function Footer() {
             <Link
               key={label}
               href={href}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ fontFamily: 'var(--font-mono)', fontSize: '0.69rem', color: '#8B7E75', letterSpacing: '0.06em', textDecoration: 'none' }}
               className="hover:text-[#1A1613] transition-colors"
             >
