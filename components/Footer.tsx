@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
 const socials = [
-  { label: 'LinkedIn', href: '#' },
-  { label: 'GitHub', href: '#' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/kuldeep-garg/' },
+  { label: 'GitHub', href: 'https://github.com/Kuldeepkdg' },
   { label: 'Twitter/X', href: '#' },
-  { label: 'Instagram', href: '#' },
-  { label: 'YouTube', href: '#' },
+  { label: 'Instagram', href: 'https://www.instagram.com/_kd.garg_/' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@kuldeep_garg' },
 ]
 
 export default function Footer() {

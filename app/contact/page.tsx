@@ -55,8 +55,8 @@ export default function Contact() {
           <div className="page-footnote" style={{ maxWidth: '520px', marginTop: '3rem' }}>
             <p>
               Prefer email?{' '}
-              <a href="mailto:kuldeep.g@taos.digital" className="accent-link">
-                kuldeep.g@taos.digital
+              <a href="mailto:kuldeepgarg065@gmail.com" className="accent-link">
+                kuldeepgarg065@gmail.com
               </a>
             </p>
             <p style={{ marginTop: '0.5rem' }}>
