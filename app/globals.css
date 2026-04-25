@@ -1,0 +1,443 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #FAF7F2;
+  --color-text: #1A1613;
+  --color-accent: #B8543D;
+  --color-accent-light: #D4856E;
+  --color-warm-gray: #C4BAB0;
+  --color-muted: #8B7E75;
+  --color-surface: #F0EBE4;
+  --color-rule: #D4CCC6;
+
+  --font-serif: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'Fira Code', 'Courier New', monospace;
+  --font-hand: var(--font-caveat), cursive;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #FAF7F2;
+  color: #1A1613;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF7F2;
+  min-height: 100vh;
+}
+
+/* ── Typography ───────────────────────────────────── */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Drop cap */
+.drop-cap::first-letter {
+  font-family: var(--font-serif);
+  font-size: 4.25rem;
+  font-weight: 300;
+  line-height: 0.82;
+  float: left;
+  margin-right: 10px;
+  margin-top: 6px;
+  color: #B8543D;
+}
+
+/* Small caps section labels */
+.small-caps {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.1em;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+/* Warm horizontal rule */
+.warm-rule {
+  border: none;
+  border-top: 1px solid #D4CCC6;
+  margin: 2.5rem 0;
+}
+
+/* Ornamental rule — center dot between lines */
+.ornamental-rule {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  color: #C4BAB0;
+}
+.ornamental-rule::before,
+.ornamental-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #D4CCC6;
+}
+
+/* ── Prose ────────────────────────────────────────── */
+
+.prose-warm {
+  font-size: 1.075rem;
+  line-height: 1.82;
+  color: #1A1613;
+  max-width: 650px;
+}
+
+.prose-warm p {
+  margin-bottom: 1.5em;
+}
+
+.prose-warm a {
+  color: #B8543D;
+  text-decoration: none;
+  border-bottom: 1px solid #B8543D;
+  padding-bottom: 1px;
+  transition: border-color 0.15s ease;
+}
+
+.prose-warm a:hover {
+  border-bottom-color: transparent;
+}
+
+/* ── Section bands ────────────────────────────────── */
+
+.band-surface {
+  background-color: #F0EBE4;
+}
+
+.band-base {
+  background-color: #FAF7F2;
+}
+
+/* Dot-grid texture overlay */
+.dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, #C4BAB030 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+/* Watermark decorative number/monogram */
+.watermark {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  color: #1A1613;
+  opacity: 0.04;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+/* ── Sidenotes (Tufte-style) ──────────────────────── */
+
+.sidenote-wrapper {
+  position: relative;
+}
+
+.sidenote {
+  position: absolute;
+  right: -260px;
+  top: 0;
+  width: 215px;
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: #8B7E75;
+  font-family: var(--font-sans);
+}
+
+.sidenote-marker {
+  font-size: 0.65rem;
+  vertical-align: super;
+  color: #B8543D;
+  margin-right: 0.15em;
+  font-family: var(--font-mono);
+}
+
+/* ── Tech chips ───────────────────────────────────── */
+
+.tech-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 0.22em 0.58em;
+  background: #F0EBE4;
+  color: #8B7E75;
+  border: 1px solid #D4CCC6;
+  line-height: 1.65;
+}
+
+/* ── Links ────────────────────────────────────────── */
+
+.accent-link {
+  color: #B8543D;
+  text-decoration: none;
+  border-bottom: 1px solid #B8543D;
+  padding-bottom: 1px;
+  transition: border-color 0.15s ease;
+}
+
+.accent-link:hover {
+  border-bottom-color: transparent;
+}
+
+.arrow-link {
+  font-size: 0.9375rem;
+  color: #1A1613;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.arrow-link:hover {
+  color: #B8543D;
+}
+
+/* ── Pull quote ───────────────────────────────────── */
+
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.45;
+  color: #1A1613;
+  padding-left: 1.5rem;
+  border-left: 2px solid #B8543D;
+  margin: 2.5rem 0;
+}
+
+/* ── Nav ──────────────────────────────────────────── */
+
+.nav-active {
+  border-bottom: 1.5px solid #B8543D;
+  padding-bottom: 1px;
+}
+
+/* ── Code blocks ──────────────────────────────────── */
+
+pre, code {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+pre {
+  background: #F0EBE4;
+  border: 1px solid #D4CCC6;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  line-height: 1.65;
+}
+
+/* ── Masthead ─────────────────────────────────────── */
+
+.masthead {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.11em;
+  color: #8B7E75;
+  text-transform: uppercase;
+}
+
+/* ── Page footnote ────────────────────────────────── */
+
+.page-footnote {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: #8B7E75;
+  border-top: 1px solid #D4CCC6;
+  padding-top: 1rem;
+  margin-top: 4rem;
+}
+
+/* ── Category section header ──────────────────────── */
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.category-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #D4CCC6;
+}
+
+/* ── Project entry hover ──────────────────────────── */
+
+.project-entry {
+  transition: background-color 0.2s ease;
+  border-radius: 2px;
+  margin: 0 -1rem;
+  padding: 1.75rem 1rem;
+}
+
+.project-entry:hover {
+  background-color: rgba(184, 84, 61, 0.05);
+}
+
+/* ── Bento grid ───────────────────────────────────── */
+
+.stack-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.875rem;
+}
+
+@media (max-width: 900px) {
+  .stack-bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stack-bento .bento-wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .stack-bento {
+    grid-template-columns: 1fr;
+  }
+  .stack-bento .bento-wide {
+    grid-column: span 1;
+  }
+}
+
+/* ── Photo ring ───────────────────────────────────── */
+
+.photo-ring {
+  border-radius: 50%;
+  border: 3px solid #B8543D;
+  box-shadow: 0 0 0 8px #F0EBE4, 0 0 0 10px #D4CCC6;
+  overflow: hidden;
+  transition: box-shadow 0.35s ease;
+}
+
+.photo-ring:hover {
+  box-shadow: 0 0 0 8px #F0EBE4, 0 0 0 12px #B8543D;
+}
+
+/* ── Accent button ───────────────────────────────── */
+
+.btn-accent {
+  display: inline-block;
+  background-color: #B8543D;
+  color: #FAF7F2;
+  padding: 0.72rem 1.85rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  transition: opacity 0.2s ease;
+}
+
+.btn-accent:hover {
+  opacity: 0.85;
+}
+
+/* ── Metric card ──────────────────────────────────── */
+
+.metric-card {
+  padding: 1.5rem 1.75rem;
+  border-top: 2px solid #B8543D;
+  background: #FAF7F2;
+  transition: transform 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+
+.metric-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ── Magnetic transition base ─────────────────────── */
+
+.magnetic {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+/* ── Paper noise texture ──────────────────────────── */
+
+.paper-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.085 0 0 0 0 0.075 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── Warm radial glow ─────────────────────────────── */
+
+.warm-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(184,84,61,0.055) 0%, transparent 42%),
+    radial-gradient(ellipse at 85% 70%, rgba(212,133,110,0.05) 0%, transparent 48%),
+    radial-gradient(ellipse at 50% 100%, rgba(196,186,176,0.18) 0%, transparent 55%);
+}
+
+/* ── Dot grid with radial fade mask ──────────────── */
+
+.dot-grid-masked {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, #C4BAB030 1px, transparent 0);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+}
+
+/* ── Animations ───────────────────────────────────── */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up   { animation: fadeUp  0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .fade-in   { animation: fadeIn  0.45s ease both; }
+  .scale-in  { animation: scaleIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  .delay-1 { animation-delay: 0.08s; }
+  .delay-2 { animation-delay: 0.18s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.44s; }
+  .delay-5 { animation-delay: 0.58s; }
+  .delay-6 { animation-delay: 0.72s; }
+}
