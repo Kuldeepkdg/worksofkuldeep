@@ -164,7 +164,7 @@ export default function Home() {
                 style={{ width: '280px', height: '280px', position: 'relative' }}
               >
                 <Image
-                  src="/images/kuldeep.jpg"
+                  src="/images/kuldeep.JPG"
                   alt="Kuldeep Garg"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'top center' }}
