@@ -121,7 +121,7 @@ export default function About() {
                   style={{ width: '100%', height: '100%', position: 'relative' }}
                 >
                   <Image
-                    src="/images/kuldeep.jpg"
+                    src="/images/kuldeep.JPG"
                     alt="Kuldeep Garg"
                     fill
                     style={{ objectFit: 'cover', objectPosition: 'top center' }}
