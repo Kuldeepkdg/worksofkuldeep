@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getProjectBySlug, getAllSlugs } from '@/lib/projects'
 import SmallCapsLabel from '@/components/SmallCapsLabel'
 
@@ -169,6 +170,39 @@ export default async function CaseStudy({ params }: Props) {
           )}
         </div>
       </div>
+
+      {/* Architecture / preview image */}
+      {project.image && (
+        <div style={{ marginBottom: '4rem' }}>
+          <span style={{
+            display: 'block',
+            fontVariantCaps: 'small-caps',
+            letterSpacing: '0.09em',
+            fontSize: '0.72rem',
+            color: '#8B7E75',
+            marginBottom: '1rem',
+            fontWeight: 500,
+          }}>
+            Architecture
+          </span>
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            borderRadius: '2px',
+            border: '1px solid #D4CCC6',
+            overflow: 'hidden',
+            background: '#F0EBE4',
+          }}>
+            <Image
+              src={project.image}
+              alt={`${project.title} architecture diagram`}
+              width={1200}
+              height={720}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Case study body */}
       {caseStudy ? (

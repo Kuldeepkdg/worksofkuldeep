@@ -27,6 +27,7 @@ export interface Project {
   category: 'ai' | 'data' | 'learning'
   employer?: string
   status?: 'active' | 'completed' | 'deployed'
+  image?: string
   caseStudy?: CaseStudy
 }
 
@@ -34,11 +35,11 @@ export const projects: Project[] = [
   {
     slug: 'askniki',
     title: 'AskNIKI',
-    subtitle: 'Contract intelligence at scale',
+    subtitle: 'Dual-mode document intelligence · A2A v0.3.0',
     year: 2025,
     description:
-      'A contract intelligence tool that turns unstructured procurement documents into queryable, actionable data. Built on a three-stage semantic pipeline — vector retrieval, neural reranking, SLM fact extraction — with a natural-language-to-SQL agent for ad-hoc querying.',
-    tech: ['FastAPI', 'LangGraph', 'PostgreSQL', 'pgvector', 'Azure OpenAI', 'Cohere Rerank', 'MCP', 'A2A'],
+      'A production-grade, dual-mode document intelligence platform — Insights and Analytics. Four-layer hybrid architecture: Cloud LLM orchestrator, SLM agents (Codestral-2501 / DeepSeek-R1-0528 via Azure AI Foundry), MCP servers, and PostgreSQL, connected via Google\'s A2A v0.3.0 protocol. Two-tier execution: Tier 1 ReAct for standard queries (~5–8s), Tier 2 LangGraph StateGraph for complex multi-step reasoning. Analytics mode delivers Chart.js dashboards, PDF/PPTX reports, and automated email delivery via a Communications Agent.',
+    tech: ['FastAPI', 'LangGraph', 'React 18', 'TypeScript', 'PostgreSQL', 'pgvector', 'Azure OpenAI', 'Cohere Rerank', 'MCP', 'A2A', 'DeepSeek-R1', 'Codestral'],
     metrics: [
       { value: '~90%', label: 'token reduction via structured facts' },
       { value: '80%', label: 'reduction in manual prep effort' },
@@ -47,21 +48,22 @@ export const projects: Project[] = [
     featured: true,
     category: 'ai',
     status: 'active',
+    image: '/images/askniki-architecture.png',
     caseStudy: {
       problem:
         'Enterprise procurement teams spend hours manually extracting clauses, pricing, and obligations from contracts. Most tools do OCR and keyword search — they retrieve text but don\'t understand it. The result: analysts copy-pasting across documents to answer questions that should take seconds.',
       approach:
-        'Three-stage semantic pipeline. Stage one: pgvector retrieval using a schema registry to give the retriever contextual grounding about what it\'s searching for. Stage two: Cohere Rerank to filter signal from noise — a step we almost skipped and shouldn\'t have. Stage three: a small language model extracts structured facts from the top-k chunks, turning prose into typed data. A2A and MCP architecture means each stage is a composable agent that can be swapped or upgraded independently.',
+        'Four-layer hybrid architecture with strict layer contracts. The Cloud LLM orchestrator sees only A2A Agent Cards — never raw SQL rows, document chunks, or binary blobs. SLM agents (Codestral-2501 for SQL, DeepSeek-R1-0528 for semantic reasoning and email delivery) communicate via Google\'s A2A v0.3.0 protocol (JSON-RPC 2.0). MCP servers handle deterministic tool execution. Two-tier orchestration: Tier 1 ReAct for skills-based queries, Tier 2 LangGraph StateGraph (UNDERSTAND → PLAN → EXECUTE → REFLECT) for complex reasoning with MemorySaver checkpointing and stateful inline clarification.',
       built:
-        'FastAPI backend with LangGraph orchestration. The NL-to-SQL agent sits on top of the pipeline: natural language questions are routed through the schema registry (itself a RAG system over the database schema), translated to SQL, and executed against a PostgreSQL store populated by the extraction pipeline. Session management handles multi-turn conversations with full context awareness.',
+        'FastAPI backend with LangGraph orchestration across both modes. Each SLM agent exposes an Agent Card at /.well-known/agent-card.json; the orchestrator discovers tools dynamically via inputSchema — no local imports required. Analytics mode adds Chart.js visualizations, server-side matplotlib/PDF/PPTX generation, and a Communications Agent that delivers multi-chart email reports via Gmail SMTP. Blob isolation: binary payloads are stored in the SQL Agent\'s task store and referenced by draft_task_id — they never enter Cloud LLM token space. React 18 SPA with JWT authentication, persistent chat history, and credit-based rate limiting.',
       results:
-        'Roughly 90% reduction in tokens sent to the primary LLM — the fact extraction step means we\'re passing structured data to GPT-4o instead of raw document chunks. Categorization accuracy hit 98% after tuning the reranker threshold. Manual prep time for contract review fell by 80%.',
+        'Roughly 90% reduction in tokens sent to the primary LLM — the fact extraction step means we\'re passing structured data to GPT-4o instead of raw document chunks. Categorization accuracy hit 98% after tuning the reranker threshold. Manual prep time for contract review fell by 80%. The Communications Agent delivers formatted reports (HTML/PDF/PPTX) from A2A skill output without binary data entering the LLM inference path.',
       retrospective:
-        'I underestimated the reranker. The initial prototype used vector search alone and precision was acceptable — but adding Cohere Rerank as a second stage was the highest-ROI single change we made. I\'d add it on day one in the next project. The other thing: schema registry design is load-bearing. The quality of the NL-to-SQL translation is almost entirely determined by how well the registry describes column semantics, not by the LLM itself.',
+        'I underestimated the reranker. The initial prototype used vector search alone and precision was acceptable — but adding Cohere Rerank as a second stage was the highest-ROI single change we made. I\'d add it on day one in the next project. The other lesson: the A2A layer contract pays for itself. Enforcing that the Cloud LLM never touches raw data directly made the system far easier to debug, swap components, and reason about at scale — the boundary is load-bearing, not ceremonial.',
       sidenotes: [
         {
-          afterText: 'Stage two: Cohere Rerank to filter signal from noise',
-          text: 'Precision improved from ~71% to ~91% after adding this stage. The cost increase was negligible.',
+          afterText: 'Tier 2 LangGraph StateGraph (UNDERSTAND → PLAN → EXECUTE → REFLECT)',
+          text: 'The REFLECT node can route back to PLAN up to twice if the answer is incomplete — a self-correction loop that meaningfully improves output quality on multi-hop queries.',
         },
         {
           afterText: '90% reduction in tokens sent to the primary LLM',
@@ -73,11 +75,11 @@ export const projects: Project[] = [
   {
     slug: 'contract-intelligence-platform',
     title: 'Contract Intelligence Platform',
-    subtitle: 'Five microservices, one coherent system',
+    subtitle: 'AI-native CLM SaaS · 14 vertical-slice modules',
     year: 2024,
     description:
-      'A document intelligence platform built as five independently deployable microservices: TemplateLearning, ChunkProcessor, DocumentGenerator, SessionManager, and a Gateway. Deployed on Azure Container Apps with Azure Document Intelligence parsing and GPT-4o generation.',
-    tech: ['Azure Container Apps', 'Azure Document Intelligence', 'GPT-4o', 'pgvector', 'Python', 'FastAPI'],
+      'An AI-native Contract Lifecycle Management SaaS built on .NET 10 Minimal APIs, React 19, and Python FastAPI. Fourteen vertical-slice modules cover the full contract lifecycle — AI-powered document generation, real-time co-editing (Y.js + SignalR), vendor portal, e-signature, obligation tracking, analytics, and public procurement compliance. Orchestrated locally via .NET Aspire; deployed to Azure Container Apps via Bicep.',
+    tech: ['.NET 10', 'ASP.NET Core', 'React 19', 'Python FastAPI', 'LiteLLM', 'Docling', 'Hangfire', 'SignalR', 'Y.js', 'PostgreSQL', 'Redis', 'Azure Container Apps'],
     metrics: [
       { value: '79%', label: 'reduction in document generation time' },
       { value: '98%', label: 'document categorization accuracy' },
@@ -87,15 +89,15 @@ export const projects: Project[] = [
     status: 'deployed',
     caseStudy: {
       problem:
-        'Contract drafting is repetitive and slow. Legal and procurement teams work from templates but each contract requires significant manual customization — pulling clauses from precedents, adjusting terms, ensuring internal consistency. The bottleneck isn\'t knowledge; it\'s transfer.',
+        'Contract drafting is repetitive and slow. Legal and procurement teams work from templates but each contract requires significant manual customization — pulling clauses from precedents, adjusting terms, ensuring internal consistency. The bottleneck isn\'t knowledge; it\'s transfer. And once a contract is signed, tracking obligations and renewals falls back to spreadsheets.',
       approach:
-        'Five microservices with clean ownership boundaries. TemplateLearning ingests existing contracts and learns structural patterns — where clauses live, what they look like, what varies. ChunkProcessor handles document parsing via Azure Document Intelligence and embeds chunks into pgvector. DocumentGenerator takes a user request and assembles a draft by retrieving relevant precedents and prompting GPT-4o with structured context. SessionManager maintains conversation state across multi-step generation flows. Gateway handles auth, routing, and rate limiting.',
+        'Fourteen vertical-slice modules, each with full ownership over its domain: identity, projects, documents, generation, collaboration, vendor portal, workflow, signature, intelligence, post-execution, analytics, notifications, administration, and government procurement. Each module is independently testable and deployable. AI inference routes through LiteLLM for provider flexibility; Docling handles PDF parsing with strong accuracy on multi-column and table-heavy legal documents. .NET Aspire orchestrates local development; NetArchTest enforces module boundaries in CI.',
       built:
-        'Each service is a FastAPI application containerized with Docker and deployed to Azure Container Apps. pgvector stores document embeddings. Azure Document Intelligence handles PDF parsing — significantly better than open-source alternatives on multi-column and table-heavy legal documents. Communication between services is async where possible.',
+        '.NET 10 Minimal API host with Hangfire background workers for async processing — document ingestion, embedding generation, obligation reminders. Real-time co-editing built on Y.js (CRDT) over SignalR, allowing multiple reviewers to edit simultaneously with conflict-free merge. Python FastAPI AI service handles generation and clause extraction via LiteLLM. React 19 frontend with TanStack Router and Query. Infrastructure as code via Azure Bicep targeting Container Apps with Postgres and Redis.',
       results:
-        'Document generation time fell 79%. The TemplateLearning service eliminated the need to manually configure templates — it learns from existing documents in the corpus. Categorization accuracy at 98% means the right clause types are retrieved reliably.',
+        'Document generation time fell 79% — AI clause assembly from precedent corpus replaces manual copy-paste. Categorization accuracy at 98% means the right clause types are retrieved reliably. Real-time collaboration eliminated the version-control email chain that previously added days to review cycles.',
       retrospective:
-        'The microservice boundary between ChunkProcessor and TemplateLearning ended up being tighter than designed — they share assumptions about chunk structure that I\'d formalize as a shared schema in v2. The async service communication also introduced ordering bugs in early development that a message queue would have prevented.',
+        'The module boundary discipline enforced by NetArchTest was worth the setup cost — it caught several accidental cross-module dependencies early that would have become architectural debt. The Y.js + SignalR combination for co-editing was more straightforward than expected; the harder problem was preserving intent when two editors simultaneously revise the same clause, which required business logic above the CRDT layer.',
     },
   },
   {
@@ -136,18 +138,6 @@ export const projects: Project[] = [
     featured: false,
     category: 'data',
     status: 'deployed',
-  },
-  {
-    slug: 'ask-dia',
-    title: 'ASK DIA',
-    subtitle: 'Agentic RAG with dual-mode intelligence',
-    year: 2024,
-    description:
-      'An agentic RAG system with a LangGraph multi-agent architecture: Planner, Router, Executor, Context Builder, and Generator agents. Dual mode — Insights (summarize and explain) and Analytics (quantify and query) — routing to the appropriate workflow based on query intent.',
-    tech: ['LangGraph', 'LangChain', 'Azure OpenAI', 'pgvector', 'FastAPI', 'Python'],
-    featured: false,
-    category: 'ai',
-    status: 'completed',
   },
   {
     slug: 'heart-disease-prediction',
