@@ -21,6 +21,7 @@ export interface Project {
   subtitle?: string
   year: number
   description: string
+  points?: string[]   // bullet points for display; supports **bold** markers
   tech: string[]
   metrics?: Metric[]
   featured: boolean
@@ -38,11 +39,19 @@ export const projects: Project[] = [
     subtitle: 'Dual-mode document intelligence · A2A v0.3.0',
     year: 2025,
     description:
-      'A production-grade, dual-mode document intelligence platform — Insights and Analytics. Four-layer hybrid architecture: Cloud LLM orchestrator, SLM agents (Codestral-2501 / DeepSeek-R1-0528 via Azure AI Foundry), MCP servers, and PostgreSQL, connected via Google\'s A2A v0.3.0 protocol. Two-tier execution: Tier 1 ReAct for standard queries (~5–8s), Tier 2 LangGraph StateGraph for complex multi-step reasoning. Analytics mode delivers Chart.js dashboards, PDF/PPTX reports, and automated email delivery via a Communications Agent.',
+      'A production-grade, dual-mode document intelligence platform — Insights and Analytics. Four-layer hybrid architecture with Google\'s A2A v0.3.0 protocol, two-tier LangGraph execution, and a Communications Agent for automated report delivery.',
+    points: [
+      '**Dual-mode document intelligence** — Insights mode (natural language Q&A) and Analytics mode (dashboards + automated reports)',
+      '**Four-layer hybrid architecture**: Cloud LLM orchestrator → SLM agents (Codestral-2501 / DeepSeek-R1-0528 via Azure AI Foundry) → MCP servers → PostgreSQL, connected via **Google\'s A2A v0.3.0** protocol (JSON-RPC 2.0)',
+      '**Two-tier execution**: Tier 1 ReAct for standard queries (~5–8s); Tier 2 LangGraph StateGraph (UNDERSTAND → PLAN → EXECUTE → REFLECT) for complex multi-step reasoning',
+      'Analytics mode generates **Recharts dashboards**, PDF/PPTX reports, and automated email delivery via a **Communications Agent**',
+      '**~90% token reduction** via structured fact extraction — Cloud LLM never processes raw document chunks',
+      'React 18 SPA with JWT authentication, persistent chat history, and **credit-based rate limiting**',
+    ],
     tech: ['FastAPI', 'LangGraph', 'React 18', 'TypeScript', 'PostgreSQL', 'pgvector', 'Azure OpenAI', 'Cohere Rerank', 'MCP', 'A2A', 'DeepSeek-R1', 'Codestral'],
     metrics: [
       { value: '~90%', label: 'token reduction via structured facts' },
-      { value: '80%', label: 'reduction in manual prep effort' },
+      { value: '85%', label: 'reduction in manual report prep time' },
       { value: '98%', label: 'document categorization accuracy' },
     ],
     featured: true,
@@ -55,9 +64,9 @@ export const projects: Project[] = [
       approach:
         'Four-layer hybrid architecture with strict layer contracts. The Cloud LLM orchestrator sees only A2A Agent Cards — never raw SQL rows, document chunks, or binary blobs. SLM agents (Codestral-2501 for SQL, DeepSeek-R1-0528 for semantic reasoning and email delivery) communicate via Google\'s A2A v0.3.0 protocol (JSON-RPC 2.0). MCP servers handle deterministic tool execution. Two-tier orchestration: Tier 1 ReAct for skills-based queries, Tier 2 LangGraph StateGraph (UNDERSTAND → PLAN → EXECUTE → REFLECT) for complex reasoning with MemorySaver checkpointing and stateful inline clarification.',
       built:
-        'FastAPI backend with LangGraph orchestration across both modes. Each SLM agent exposes an Agent Card at /.well-known/agent-card.json; the orchestrator discovers tools dynamically via inputSchema — no local imports required. Analytics mode adds Chart.js visualizations, server-side matplotlib/PDF/PPTX generation, and a Communications Agent that delivers multi-chart email reports via Gmail SMTP. Blob isolation: binary payloads are stored in the SQL Agent\'s task store and referenced by draft_task_id — they never enter Cloud LLM token space. React 18 SPA with JWT authentication, persistent chat history, and credit-based rate limiting.',
+        'FastAPI backend with LangGraph orchestration across both modes. Each SLM agent exposes an Agent Card at /.well-known/agent-card.json; the orchestrator discovers tools dynamically via inputSchema — no local imports required. Analytics mode adds Recharts visualizations, server-side matplotlib/PDF/PPTX generation, and a Communications Agent that delivers multi-chart email reports via Gmail SMTP. Blob isolation: binary payloads are stored in the SQL Agent\'s task store and referenced by draft_task_id — they never enter Cloud LLM token space. React 18 SPA with JWT authentication, persistent chat history, and credit-based rate limiting.',
       results:
-        'Roughly 90% reduction in tokens sent to the primary LLM — the fact extraction step means we\'re passing structured data to GPT-4o instead of raw document chunks. Categorization accuracy hit 98% after tuning the reranker threshold. Manual prep time for contract review fell by 80%. The Communications Agent delivers formatted reports (HTML/PDF/PPTX) from A2A skill output without binary data entering the LLM inference path.',
+        'Roughly 90% reduction in tokens sent to the primary LLM — the fact extraction step means we\'re passing structured data to GPT-4o instead of raw document chunks. Categorization accuracy hit 98% after tuning the reranker threshold. Manual prep time for report generation fell by 85%. The Communications Agent delivers formatted reports (HTML/PDF/PPTX) from A2A skill output without binary data entering the LLM inference path.',
       retrospective:
         'I underestimated the reranker. The initial prototype used vector search alone and precision was acceptable — but adding Cohere Rerank as a second stage was the highest-ROI single change we made. I\'d add it on day one in the next project. The other lesson: the A2A layer contract pays for itself. Enforcing that the Cloud LLM never touches raw data directly made the system far easier to debug, swap components, and reason about at scale — the boundary is load-bearing, not ceremonial.',
       sidenotes: [
@@ -78,9 +87,18 @@ export const projects: Project[] = [
     subtitle: 'AI-native CLM SaaS · 14 vertical-slice modules',
     year: 2024,
     description:
-      'An AI-native Contract Lifecycle Management SaaS built on .NET 10 Minimal APIs, React 19, and Python FastAPI. Fourteen vertical-slice modules cover the full contract lifecycle — AI-powered document generation, real-time co-editing (Y.js + SignalR), vendor portal, e-signature, obligation tracking, analytics, and public procurement compliance. Orchestrated locally via .NET Aspire; deployed to Azure Container Apps via Bicep.',
+      'An AI-native Contract Lifecycle Management SaaS built on .NET 10 Minimal APIs, React 19, and Python FastAPI. Fourteen vertical-slice modules cover the full contract lifecycle — from generation and approval through execution, management, and renewal.',
+    points: [
+      '**AI-native CLM SaaS** covering the full contract lifecycle — generation, approval, execution, management, and renewal',
+      '**14 vertical-slice modules** with full domain ownership: identity, documents, generation, collaboration, vendor portal, e-signature, obligation tracking, analytics, notifications, and government procurement compliance',
+      '**Real-time co-editing** via Y.js (CRDT) + SignalR — multiple reviewers edit simultaneously with conflict-free merge',
+      'AI clause assembly via **LiteLLM + Docling**; background processing via **Hangfire** workers; local orchestration via **.NET Aspire**; deployed to **Azure Container Apps** via Bicep IaC',
+      '**92% reduction in full contract lifecycle time** — from generation through approval, execution, management, to renewal',
+      '**79% reduction in document generation time**; 98% document categorization accuracy',
+    ],
     tech: ['.NET 10', 'ASP.NET Core', 'React 19', 'Python FastAPI', 'LiteLLM', 'Docling', 'Hangfire', 'SignalR', 'Y.js', 'PostgreSQL', 'Redis', 'Azure Container Apps'],
     metrics: [
+      { value: '92%', label: 'reduction in contract lifecycle time' },
       { value: '79%', label: 'reduction in document generation time' },
       { value: '98%', label: 'document categorization accuracy' },
     ],
@@ -95,7 +113,7 @@ export const projects: Project[] = [
       built:
         '.NET 10 Minimal API host with Hangfire background workers for async processing — document ingestion, embedding generation, obligation reminders. Real-time co-editing built on Y.js (CRDT) over SignalR, allowing multiple reviewers to edit simultaneously with conflict-free merge. Python FastAPI AI service handles generation and clause extraction via LiteLLM. React 19 frontend with TanStack Router and Query. Infrastructure as code via Azure Bicep targeting Container Apps with Postgres and Redis.',
       results:
-        'Document generation time fell 79% — AI clause assembly from precedent corpus replaces manual copy-paste. Categorization accuracy at 98% means the right clause types are retrieved reliably. Real-time collaboration eliminated the version-control email chain that previously added days to review cycles.',
+        'Full contract lifecycle time fell 92% — from generation through approval, execution, management, to renewal. Document generation time fell 79% — AI clause assembly from precedent corpus replaces manual copy-paste. Categorization accuracy at 98% means the right clause types are retrieved reliably. Real-time collaboration eliminated the version-control email chain that previously added days to review cycles.',
       retrospective:
         'The module boundary discipline enforced by NetArchTest was worth the setup cost — it caught several accidental cross-module dependencies early that would have become architectural debt. The Y.js + SignalR combination for co-editing was more straightforward than expected; the harder problem was preserving intent when two editors simultaneously revise the same clause, which required business logic above the CRDT layer.',
     },
@@ -111,7 +129,7 @@ export const projects: Project[] = [
     metrics: [
       { value: '80%', label: 'reduction in manual triage effort' },
     ],
-    featured: true,
+    featured: false,
     category: 'ai',
     status: 'deployed',
     caseStudy: {
@@ -138,6 +156,44 @@ export const projects: Project[] = [
     featured: false,
     category: 'data',
     status: 'deployed',
+  },
+  {
+    slug: 'myxalytics',
+    title: 'DRYiCE MyXalytics',
+    subtitle: 'Unified reporting & predictive analytics · HCL Software',
+    year: 2022,
+    description:
+      'Unified reporting and predictive analytics platform at HCL Software. Designed ETL pipelines with Apache NiFi and PySpark; built 35+ dashboards across Power BI, Tableau, and MyXalytics. Optimized 65+ stored procedures for 40% query performance improvement in production.',
+    points: [
+      'Designed and optimized **SQL-based ETL workflows** for FinOps, ITSM, alerting, and performance monitoring using **Apache NiFi, PySpark**, and HCL\'s in-house data mining tools',
+      'Built **35+ interactive dashboards and reports** using Power BI, Tableau, and MyXalytics — converting raw data into actionable insights for enterprise clients',
+      'Developed **DAX queries** with advanced Power BI features (slicers, custom visuals, KPI indicators) to surface trends and anomalies',
+      '**Optimized 65+ stored procedures and views**, improving query performance by **40% in production**',
+      'Ingested multi-source data from **Zabbix, Moogsoft, ServiceNow, Azure, AWS, and GCP** — enabling real-time, multi-domain reporting for global clients',
+      'Improved data relevance and clarity by **25%** by collaborating with stakeholders to define key metrics and KPIs',
+    ],
+    tech: ['Power BI', 'DAX', 'Tableau', 'Apache NiFi', 'PySpark', 'T-SQL', 'Zabbix', 'ServiceNow', 'Moogsoft', 'Python'],
+    metrics: [
+      { value: '35+', label: 'interactive dashboards and reports built' },
+      { value: '40%', label: 'improvement in query performance' },
+      { value: '25%', label: 'improvement in data relevance and clarity' },
+    ],
+    featured: true,
+    category: 'data',
+    employer: 'DRYiCE (HCL)',
+    status: 'completed',
+    caseStudy: {
+      problem:
+        'Enterprise IT teams were drowning in siloed monitoring data from a dozen different tools — Zabbix for infrastructure alerts, Moogsoft for AIOps, ServiceNow for ITSM tickets, plus cloud metrics from Azure, AWS, and GCP. Decision-makers had no unified view; analysts spent most of their time pulling and formatting data before any actual analysis could happen.',
+      approach:
+        'Unified all data sources into a single reporting layer by building SQL-based ETL workflows with Apache NiFi and PySpark. Applied Jolt transformations in NiFi to standardize complex JSON inputs across diverse source schemas. Designed the data model around reporting needs — FinOps, ITSM, alerting, and performance monitoring — not around the source systems that owned the data.',
+      built:
+        'Built 35+ interactive dashboards and reports across Power BI, Tableau, and MyXalytics for global enterprise clients. Developed DAX measures with advanced Power BI features — slicers, custom visuals, KPI indicators — to surface trends and anomalies. Optimized 65+ stored procedures and views in production, reducing query execution time by 40%. Multi-source data ingestion from Zabbix, Moogsoft, ServiceNow, Azure, AWS, and GCP into a unified reporting layer.',
+      results:
+        'Query performance improved 40% across production workloads through stored procedure optimization and effective data modelling. Stakeholder alignment on KPIs improved data relevance by 25% across reports. The platform enabled real-time, multi-domain reporting for global clients — all from a single unified reporting layer that analysts could trust.',
+      retrospective:
+        'The hardest part was not the ETL — it was agreeing on definitions. Every team had a slightly different understanding of what "incident resolution time" meant, and those differences showed up in conflicting report numbers. I\'d start the next project with a KPI alignment workshop before writing a single query.',
+    },
   },
   {
     slug: 'heart-disease-prediction',
@@ -185,19 +241,6 @@ export const projects: Project[] = [
     tech: ['Python', 'NumPy', 'Matplotlib', 'Jupyter'],
     featured: false,
     category: 'learning',
-    status: 'completed',
-  },
-  {
-    slug: 'myxalytics',
-    title: 'DRYiCE MyXalytics',
-    subtitle: 'Enterprise reporting at HCL',
-    year: 2022,
-    description:
-      'Worked on the MyXalytics reporting platform at DRYiCE (an HCL subsidiary). Built and maintained dashboards for ITSM metrics — Zabbix, ServiceNow, Moogsoft, Nimble integrations. First experience building for production scale.',
-    tech: ['Power BI', 'T-SQL', 'Zabbix', 'ServiceNow', 'Tableau', 'Python'],
-    featured: false,
-    category: 'data',
-    employer: 'DRYiCE (HCL)',
     status: 'completed',
   },
 ]

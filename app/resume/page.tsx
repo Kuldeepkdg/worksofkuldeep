@@ -85,19 +85,15 @@ export default function Resume() {
               <ul style={{ fontSize: '0.9rem', color: '#1A1613', lineHeight: 1.75, listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                 <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
-                  Built AskNIKI — contract intelligence tool with three-stage semantic pipeline; ~90% token reduction, 98% categorization accuracy
+                  Built AskNIKI — dual-mode multi-agent document intelligence platform; four-layer hybrid architecture with A2A v0.3.0; 85% reduction in report prep time, 98% categorization accuracy
                 </li>
                 <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
-                  Designed Contract Intelligence Platform as 5 microservices on Azure Container Apps; 79% reduction in document generation time
+                  Built Contract Intelligence Platform — AI-native CLM SaaS with 14 vertical-slice modules on .NET 10 + React 19; 92% reduction in contract lifecycle time, 79% reduction in document generation time
                 </li>
                 <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
-                  Built Vertex Energy ITSM automation (n8n + Claude API + Salesforce); 80% reduction in manual triage
-                </li>
-                <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
-                  Delivered Power BI dashboard tracking ~40 IT projects with custom DAX, Coupa API integration, and incremental refresh
+                  Delivered Power BI dashboard tracking ~40 IT projects for Vertex Energy with custom DAX, Coupa API integration, and incremental refresh
                 </li>
               </ul>
             </div>
@@ -105,27 +101,39 @@ export default function Resume() {
             <div style={{ marginBottom: '2rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.25rem' }}>
                 <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', fontWeight: 300, color: '#1A1613' }}>
-                  Data Analyst {/* TODO: Confirm exact title */}
+                  Software Engineer I — Data Engineering &amp; Reporting
                 </h2>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: '#8B7E75' }}>
-                  {/* TODO: Add dates */}2022 — 2024
+                  Oct 2022 — 2024
                 </span>
               </div>
               <p style={{ fontSize: '0.82rem', color: '#B8543D', marginBottom: '0.75rem', fontVariantCaps: 'small-caps', letterSpacing: '0.04em' }}>
-                DRYiCE (HCL)
+                HCL Software · DRYiCE · MyXalytics
               </p>
               <ul style={{ fontSize: '0.9rem', color: '#1A1613', lineHeight: 1.75, listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                 <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
-                  Built and maintained ITSM dashboards on the MyXalytics reporting platform
+                  Designed and optimized SQL-based ETL workflows for FinOps, ITSM, alerting, and performance monitoring using Apache NiFi, PySpark, and HCL&apos;s in-house data mining tools; applied Jolt transformations to standardize complex JSON inputs
                 </li>
                 <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
-                  Integrated Zabbix, ServiceNow, Moogsoft, and Nimble data into unified reporting
+                  Built 35+ interactive dashboards and reports using Power BI, Tableau, and MyXalytics — converting raw data into actionable insights for global enterprise clients
                 </li>
                 <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
                   <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
-                  Delivered dashboards using Power BI, Tableau, and T-SQL for enterprise clients
+                  Developed DAX queries and applied advanced Power BI features (slicers, custom visuals, KPI indicators) to surface trends and anomalies
+                </li>
+                <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
+                  Optimized 65+ stored procedures and views, improving query performance by <strong>40% in production</strong>
+                </li>
+                <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
+                  Ingested multi-source data from Zabbix, Moogsoft, ServiceNow, Azure, AWS, and GCP — supporting real-time, multi-domain reporting for global clients
+                </li>
+                <li style={{ paddingLeft: '1.2em', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
+                  Improved data relevance and clarity by 25% by working with stakeholders to define key metrics and KPIs across reports
                 </li>
               </ul>
             </div>

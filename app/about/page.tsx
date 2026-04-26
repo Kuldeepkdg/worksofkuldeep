@@ -57,10 +57,13 @@ export default function About() {
             <div style={{ gridColumn: '1 / 8' }}>
               <div className="prose-warm">
                 <p className="drop-cap">
-                  Three years ago, I wrote my first Power Query function. I was twenty and working my
-                  first real job, and the problem — transforming a spreadsheet of purchase orders into
-                  something a dashboard could use — felt both trivially small and somehow important.
-                  That instinct has stayed with me: even unglamorous data problems are worth solving well.
+                  Four and a half years ago, I started as a data analyst — building BI reports for
+                  teams across ITSM, system monitoring, network monitoring, and FinOps to drive their
+                  business decisions. The work quickly became more than just reporting: to get useful
+                  data into dashboards, we had to build the pipelines that brought it there. Pulling
+                  data from Zabbix, ServiceNow, Moogsoft, and cloud platforms meant building ETL
+                  workflows, not just charts. That blend of data engineering and analytics has
+                  defined most of my career since.
                 </p>
 
                 <p>
@@ -74,27 +77,33 @@ export default function About() {
 
                 <p>
                   The work I&rsquo;m most proud of lately is{' '}
-                  <a href="/work/askniki" className="accent-link">AskNIKI</a> — a contract
-                  intelligence system that reduced manual prep effort by 80% and achieved 98%
-                  document categorization accuracy. The interesting problems weren&rsquo;t the ones
-                  I expected. The architecture we arrived at — three-stage semantic pipeline with
-                  structured fact extraction — emerged from building the wrong thing first and
-                  understanding why it was wrong.
+                  <a href="/work/askniki" className="accent-link">AskNIKI</a> — a multi-agent
+                  document intelligence platform that derives insights and analytics from enterprise
+                  documents. Built on a four-layer hybrid architecture using Google&rsquo;s A2A
+                  v0.3.0 protocol, with two-tier LangGraph orchestration and a Communications Agent
+                  for automated report delivery. It reduced manual report preparation effort by 85%
+                  and achieved 98% document categorization accuracy. The interesting engineering was
+                  not the AI itself but the constraints: how do you keep binary blobs out of LLM
+                  token space? How do you give a Cloud LLM orchestrator only structured facts,
+                  never raw chunks?
                 </p>
 
                 <p>
-                  Before Taos, I spent time at DRYiCE (an HCL subsidiary) building their
-                  MyXalytics reporting platform. That&rsquo;s where I learned what it means to build
-                  for production scale: things that run reliably for months without anyone touching them.
-                  The discipline of building things that don&rsquo;t need you is different from
-                  building things that work once.
+                  Before Taos, I was a Software Engineer at DRYiCE (an HCL subsidiary), building
+                  their MyXalytics unified reporting and analytics platform. I designed SQL-based ETL
+                  workflows using Apache NiFi and PySpark, built 35+ dashboards across Power BI,
+                  Tableau, and MyXalytics, and optimized 65+ stored procedures — improving query
+                  performance by 40% in production. The data came from everywhere: Zabbix, Moogsoft,
+                  ServiceNow, Azure, AWS, GCP — supporting real-time, multi-domain reporting for
+                  global clients.
                 </p>
 
                 <p>
-                  I&rsquo;m based in India. I&rsquo;m 23. I&rsquo;m currently working toward the
-                  Azure AI-102 certification and spending time on context engineering — the part of
-                  AI applications that determines output quality more than the model itself. I think the
-                  next interesting problems are in how agents decide what to remember and what to ask for.
+                  I&rsquo;m based in India. I&rsquo;m 24. I&rsquo;m currently working toward the
+                  Azure AI-102 certification and spending time on Responsible AI and agent
+                  safety — researching how multi-agent systems should reason, fail safely, and stay
+                  within intended boundaries. I think the next interesting problems are not in making
+                  agents more powerful, but in making them more trustworthy.
                 </p>
               </div>
 
@@ -217,10 +226,10 @@ export default function About() {
             }}
           >
             {[
-              { item: 'AskNIKI', detail: 'Contract intelligence · Active build' },
+              { item: 'AskNIKI', detail: 'Multi-agent intelligence · Active build' },
+              { item: 'Contract Intelligence', detail: 'AI-native CLM SaaS · Active build' },
+              { item: 'Responsible Agents', detail: 'Researching, reading, experimenting' },
               { item: 'Azure AI-102', detail: 'Certification · In progress' },
-              { item: 'Context engineering', detail: 'Research · Reading + experimenting' },
-              { item: 'This site', detail: 'Next.js 15 · Just shipped' },
             ].map(({ item, detail }) => (
               <div
                 key={item}

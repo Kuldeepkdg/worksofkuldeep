@@ -6,6 +6,13 @@ interface Props {
   showYear?: boolean
 }
 
+function renderBold(text: string): React.ReactNode {
+  const parts = text.split(/\*\*(.*?)\*\*/g)
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <strong key={i} style={{ fontWeight: 600, color: '#1A1613' }}>{part}</strong> : part
+  )
+}
+
 export default function ProjectEntry({ project, showYear = true }: Props) {
   return (
     <article style={{ paddingBottom: '2.5rem' }}>
@@ -84,17 +91,46 @@ export default function ProjectEntry({ project, showYear = true }: Props) {
             </p>
           )}
 
-          {/* Description */}
-          <p
-            style={{
-              fontSize: '0.9375rem',
-              lineHeight: 1.72,
-              color: '#1A1613',
-              marginBottom: '1rem',
-            }}
-          >
-            {project.description}
-          </p>
+          {/* Description or bullet points */}
+          {project.points ? (
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: '0 0 1rem 0',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.4rem',
+              }}
+            >
+              {project.points.map((point, i) => (
+                <li
+                  key={i}
+                  style={{
+                    fontSize: '0.9375rem',
+                    lineHeight: 1.72,
+                    color: '#1A1613',
+                    paddingLeft: '1.2em',
+                    position: 'relative',
+                  }}
+                >
+                  <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
+                  {renderBold(point)}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p
+              style={{
+                fontSize: '0.9375rem',
+                lineHeight: 1.72,
+                color: '#1A1613',
+                marginBottom: '1rem',
+              }}
+            >
+              {project.description}
+            </p>
+          )}
 
           {/* Metrics */}
           {project.metrics && project.metrics.length > 0 && (

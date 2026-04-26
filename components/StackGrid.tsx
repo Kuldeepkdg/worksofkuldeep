@@ -20,19 +20,26 @@ const colSpans: Record<string, number> = {
 interface TooltipState {
   name: string
   context: string
+  x: number
+  y: number
 }
 
 interface ChipProps {
   item: TechItem
   catColor: string
-  onHover: (t: TooltipState | null) => void
+  onTooltip: (t: TooltipState | null) => void
 }
 
-function Chip({ item, catColor, onHover }: ChipProps) {
+function Chip({ item, catColor, onTooltip }: ChipProps) {
   return (
     <span
-      onMouseEnter={() => onHover({ name: item.name, context: item.context })}
-      onMouseLeave={() => onHover(null)}
+      onMouseEnter={(e) =>
+        onTooltip({ name: item.name, context: item.context, x: e.clientX, y: e.clientY })
+      }
+      onMouseMove={(e) =>
+        onTooltip({ name: item.name, context: item.context, x: e.clientX, y: e.clientY })
+      }
+      onMouseLeave={() => onTooltip(null)}
       style={{
         display: 'inline-block',
         fontFamily: 'var(--font-mono)',
@@ -69,6 +76,40 @@ export default function StackGrid() {
 
   return (
     <div>
+      {/* Floating tooltip */}
+      {tooltip && (
+        <div
+          style={{
+            position: 'fixed',
+            left: tooltip.x + 14,
+            top: tooltip.y - 64,
+            zIndex: 9999,
+            backgroundColor: '#1A1613',
+            color: '#FAF7F2',
+            padding: '0.55rem 0.85rem',
+            maxWidth: '260px',
+            pointerEvents: 'none',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.18)',
+            borderLeft: '2px solid #B8543D',
+          }}
+        >
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.68rem',
+            color: '#B8543D',
+            display: 'block',
+            marginBottom: '0.25rem',
+            fontWeight: 500,
+            letterSpacing: '0.04em',
+          }}>
+            {tooltip.name}
+          </span>
+          <span style={{ fontSize: '0.78rem', lineHeight: 1.55, color: '#D4CCC6' }}>
+            {tooltip.context}
+          </span>
+        </div>
+      )}
+
       {/* Bento grid */}
       <div className="stack-bento">
         {stackCategories.map((cat, i) => {
@@ -135,7 +176,7 @@ export default function StackGrid() {
                     key={item.name}
                     item={item}
                     catColor={cat.color}
-                    onHover={setTooltip}
+                    onTooltip={setTooltip}
                   />
                 ))}
               </div>
@@ -143,42 +184,6 @@ export default function StackGrid() {
           )
         })}
       </div>
-
-      {/* Context tooltip bar */}
-      <div
-        style={{
-          marginTop: '1rem',
-          minHeight: '2.75rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.75rem',
-          padding: '0.5rem 0.75rem',
-          borderTop: '1px solid #D4CCC6',
-          transition: 'opacity 0.15s ease',
-          opacity: tooltip ? 1 : 0,
-        }}
-      >
-        {tooltip && (
-          <>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                color: '#B8543D',
-                flexShrink: 0,
-                fontWeight: 500,
-              }}
-            >
-              {tooltip.name}
-            </span>
-            <span style={{ color: '#D4CCC6', fontSize: '0.8rem', flexShrink: 0 }}>—</span>
-            <span style={{ fontSize: '0.8125rem', color: '#8B7E75', lineHeight: 1.5 }}>
-              {tooltip.context}
-            </span>
-          </>
-        )}
-      </div>
-
     </div>
   )
 }

@@ -28,9 +28,9 @@ const schemaOrg = {
 }
 
 const metrics = [
-  { value: '98%',  label: 'Document categorization accuracy',       sub: 'AskNIKI · Contract Intelligence' },
-  { value: '~90%', label: 'Token reduction via structured facts',    sub: 'AskNIKI semantic pipeline' },
-  { value: '80%',  label: 'Reduction in manual triage effort',       sub: 'Vertex Energy ITSM Agent' },
+  { value: '92%',  label: 'Reduction in contract lifecycle time',    sub: 'Contract Intelligence Platform' },
+  { value: '85%',  label: 'Reduction in automated report prep',      sub: 'AskNIKI Multi-Agent Platform' },
+  { value: '62%',  label: 'Improvement in Power BI performance',     sub: 'DRYiCE MyXalytics' },
 ]
 
 export default function Home() {
@@ -270,7 +270,7 @@ export default function Home() {
       <section className="band-surface" style={{ padding: '2.5rem clamp(24px, 5vw, 72px)' }}>
         <p style={{ fontSize: '0.8rem', color: '#8B7E75', lineHeight: 1.65 }}>
           <sup className="sidenote-marker">¹</sup> Currently working on{' '}
-          <em>AskNIKI</em> — contract intelligence at scale.{' '}
+          <em>AskNIKI</em> — multi-agent document intelligence.{' '}
           Last updated April 2026.
         </p>
       </section>

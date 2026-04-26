@@ -9,6 +9,13 @@ interface Props {
   isFirst: boolean
 }
 
+function renderBold(text: string): React.ReactNode {
+  const parts = text.split(/\*\*(.*?)\*\*/g)
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <strong key={i} style={{ fontWeight: 600, color: '#1A1613' }}>{part}</strong> : part
+  )
+}
+
 export default function ProjectRow({ project, index, isFirst }: Props) {
   const [ref, visible] = useReveal()
 
@@ -44,7 +51,7 @@ export default function ProjectRow({ project, index, isFirst }: Props) {
         )}
       </div>
 
-      {/* Col 2 — title, subtitle, description, chips */}
+      {/* Col 2 — title, subtitle, description or bullets, chips */}
       <div>
         <Link href={`/work/${project.slug}`} style={{ textDecoration: 'none' }}>
           <h3 style={{
@@ -63,9 +70,28 @@ export default function ProjectRow({ project, index, isFirst }: Props) {
             {project.subtitle}
           </div>
         )}
-        <p style={{ marginTop: 16, fontSize: 16, lineHeight: 1.7, color: '#1A1613', maxWidth: 560, margin: '16px 0 0' }}>
-          {project.description}
-        </p>
+
+        {project.points ? (
+          <ul style={{
+            listStyle: 'none', padding: 0,
+            margin: '16px 0 0', display: 'flex', flexDirection: 'column', gap: '0.35rem',
+          }}>
+            {project.points.slice(0, 4).map((point, i) => (
+              <li key={i} style={{
+                fontSize: 15, lineHeight: 1.65, color: '#1A1613',
+                paddingLeft: '1.2em', position: 'relative', maxWidth: 560,
+              }}>
+                <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
+                {renderBold(point)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p style={{ marginTop: 16, fontSize: 16, lineHeight: 1.7, color: '#1A1613', maxWidth: 560, margin: '16px 0 0' }}>
+            {project.description}
+          </p>
+        )}
+
         <div style={{ marginTop: 18, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {project.tech.slice(0, 6).map(t => (
             <span key={t} style={{

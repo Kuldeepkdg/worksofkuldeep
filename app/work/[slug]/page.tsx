@@ -102,9 +102,22 @@ export default async function CaseStudy({ params }: Props) {
             </p>
           )}
 
-          <p style={{ fontSize: '1.0625rem', lineHeight: 1.75, color: '#1A1613', maxWidth: '580px' }}>
-            {project.description}
-          </p>
+          {project.points ? (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem', maxWidth: '580px' }}>
+              {project.points.map((point, i) => (
+                <li key={i} style={{ fontSize: '1.0625rem', lineHeight: 1.75, color: '#1A1613', paddingLeft: '1.3em', position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 0, color: '#B8543D' }}>·</span>
+                  {point.split(/\*\*(.*?)\*\*/g).map((part, j) =>
+                    j % 2 === 1 ? <strong key={j} style={{ fontWeight: 600 }}>{part}</strong> : part
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p style={{ fontSize: '1.0625rem', lineHeight: 1.75, color: '#1A1613', maxWidth: '580px' }}>
+              {project.description}
+            </p>
+          )}
         </div>
 
         {/* Right sidebar: tech + metrics */}
